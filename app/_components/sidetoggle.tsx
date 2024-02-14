@@ -71,7 +71,7 @@ const SideToggle = () => {
         <div className="flex gap-x-4 items-cente mt-6">
           <img
             src="https://i.imgur.com/VfXLfud.png"
-            className={`mt-[-5px] h-9 cursor-pointer duration-500 ${open && "rotate-[360deg]"
+            className={` w-40 mt-[-5px] h-9 cursor-pointer duration-500 ${open && "rotate-[360deg]"
               }`}
           />
           {/* <h1

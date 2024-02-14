@@ -29,7 +29,7 @@ export function Sidebar({ children }: SidebarProps) {
       </SheetTrigger>
       <Link href="/">
         <img
-          width={'150px'}
+          width={'120px'}
           style={{ cursor: 'pointer' }}
           src="https://i.imgur.com/VfXLfud.png"
         />
