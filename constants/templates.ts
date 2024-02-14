@@ -603,3 +603,90 @@ export const FUSION_APIS = [
         note: `Sample Query: Get actual settlement contract address for the Ethereum network.`
     }
 ]
+
+
+export const COVALENT_COMMANDS = [
+    {
+        action: 'COVALENT_TOKEN_BALANCE',
+        tab_name: 'Get Account Holdings',
+        message: 'Give me token holdings information for address _ADDRESS_',
+        note: `Sample Query: Give me token holdings information for address 0x3EBCB8f4d6EA1FCc7D2352B68bDdE3364F1d20F1`
+    },
+    {
+        action: 'COVALENT_NFT_BALANCE',
+        tab_name: 'Get NFT Holdings',
+        message: 'Give me NFT holdings information for address _ADDRESS_',
+        note: `Sample Query: Give me NFT holdings information for address 0x3EBCB8f4d6EA1FCc7D2352B68bDdE3364F1d20F1`
+    },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_POLYGON_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Polygon network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0xdd23ad410574222090d3246a8caa3ab928e5bd09d777f4cfecd18e01ed3db5fe on the Polygon network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_ETHEREUM_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Ethereum network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0xf4f546489b06ccda2c7df1c054c95f53cc0c9457b68d1cd5d082c868533e2a6e on the Ethereum network.`
+    // },
+
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_BSC_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the BSC network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0xebaa7c2bc91100171c50dede33bf8016ef59b00a210bb5f6e6f23aad9d5b1231 on the BSC network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_ARBITRUM_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Arbitrum network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0xbd42f559ed5908cbcfc868dc128e1bd907c5c2343a42a06dd7ff2587b203bedc on the Arbitrum network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_OPTIMISM_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Optimism network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0x0605667a9a94703917f5c6f0f90245203a00e704fdca302c9e0e01532344fd35 on the Optimism network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_SCROLL_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Scroll network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0xafca0111a3089615d7956098e6892d8bd77341d2b3cc379a42d12f3df0db1088 on the Scroll network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_GNOSIS_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Gnosis network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0xdbe432c68e0adda484209b4df03e9dee50e03e1107b1e55a2686e3fcefdf75d2 on the Gnosis network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_AVALANCHE_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Avalanche network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0x1614b548aafa9adbea1317313c5facad15e4f6589c7d564746b95053867ad3fd on the Avalanche network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_FANTOM_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Fantom network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0x62f329da96a08117ccf2f3ec607599f0c281126f939437a8b2d17e1a48e63a11 on the Fantom network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_CRONOS_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Cronos network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0xea69c9de0e1bc5ffe4d837ec1367463905d27cacef572fa86c53e634c1d69e49 on the Cronos network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_OASYS_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Oasys network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0xfe9b5fa0e320766b58cb6eebfed2d8c80da2d8ff607c0e7d6315dd1061e83638 on the Oasys network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_METER_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Meter network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0x59e07b58379bd620a3289daf8eed048182546166e82029e02e856230aab52929 on the Meter network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_BASE_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Base network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0x6eb8fa3f45f2bbc1d996daef09a36f6a6ae78e24b9c36c06dc893d1b0850b9bd on the Base network.`
+    // },
+    // {
+    //     action: 'TRANSACTION_DETAILS_BY_HASH_FOR_LINEA_NETWORK',
+    //     message: 'Give me the transaction details for hash _HASH_ on the Linea network.',
+    //     note: `Sample Query: Give me the transaction details for hash 0x2a373b6d8413520624f014896ded9a40f4f0a91f448891b1119dafd4f677559d on the Linea network.`
+    // },
+]

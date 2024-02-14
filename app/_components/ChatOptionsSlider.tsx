@@ -5,6 +5,7 @@ import { Dialog, Transition, Disclosure } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import {
     GET_TOKEN_DETAILS_COMMANDS,
+    COVALENT_COMMANDS,
     MAINNET_TRANSACTION_DETAILS_BY_HASH_COMMANDS,
     GET_STATS_COMMANDS, TRANSACTION_DETAILS_FOR_GRAPH_COMMANDS,
     BLOCK_DETAILS_BY_HASH, BLOCK_DETAILS_BY_BLOCK_NUMBER,
@@ -342,6 +343,42 @@ export default function ChatOptionsSlider({ open, setOpen, setInput }: any) {
                                             </div>
                                         </div>
 
+                                        <div className="px-4 sm:px-4">
+                                            <Dialog.Title className="text-lg font-semibold text-gray-900">
+                                                Account Info Commands
+                                            </Dialog.Title>
+                                        </div>
+                                        {COVALENT_COMMANDS.map((item) => (
+                                            <div className="relative my-1 sm:px-4">
+                                                <Disclosure>
+                                                    {({ open }) => (
+                                                        <>
+                                                            <Disclosure.Button className="w-full bg-orange-400 text-white  font-semibold p-2 rounded-sm text-sm flex justify-between items-center">
+                                                                <div>{item.tab_name}</div>
+                                                                <div>
+                                                                    {
+                                                                        !open ? <IoIosArrowDropdown className='w-6 h-6' /> : <IoIosArrowDropup className='w-6 h-6' />
+                                                                    }
+
+                                                                </div>
+                                                            </Disclosure.Button>
+                                                            <Disclosure.Panel className="">
+                                                                <div key={item.note} className='flex flex-col  px-2 py-2 m-2 rounded-md border-dashed border text-sm font-semibold break-all'>
+                                                                    <div> {item.message}</div>
+                                                                    {item?.note && (
+                                                                        <div className='py-1 font-normal text-xs'>{item?.note}</div>
+                                                                    )}
+                                                                    <div className='text-right px-2 py-1'>
+                                                                        <Button style={{ backgroundColor: "green", color: "white" }} onClick={() => { addTemplateMessageToPropmt(item); }}>USE</Button>
+                                                                    </div>
+                                                                </div>
+
+                                                            </Disclosure.Panel>
+                                                        </>)}
+                                                </Disclosure>
+
+                                            </div>
+                                        ))}
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
