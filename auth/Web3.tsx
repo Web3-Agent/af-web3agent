@@ -219,7 +219,7 @@ interface Props {
 
 
 const Fuji = {
-  id: 43113,
+  id: 1891,
   name: 'Fuji Testnet',
   network: 'Avalanche Fuji Testnet',
   iconUrl: 'https://docs.avax.network/img/favicon.png',

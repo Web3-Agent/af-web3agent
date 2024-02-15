@@ -72,7 +72,7 @@ export default function ChatOptionsSlider({ open, setOpen, setInput }: any) {
                                     <div className="flex h-full flex-col  overflow-y-scroll bg-white py-6 shadow-xl">
                                         <div className="px-4 sm:px-4">
                                             <Dialog.Title className="text-lg font-semibold text-gray-900">
-                                                Pegasus Mainnet Commands
+                                                Data Query Commands
                                             </Dialog.Title>
                                         </div>
                                         <div className=''>
@@ -108,167 +108,6 @@ export default function ChatOptionsSlider({ open, setOpen, setInput }: any) {
                                                 </Disclosure>
 
                                             </div>
-                                            <div className="relative my-3 flex-1 sm:px-4">
-                                                <Disclosure>
-                                                    {({ open }) => (
-                                                        <>
-                                                            <Disclosure.Button className="w-full text-white font-semibold bg-pink-500 p-2 rounded-sm text-sm flex justify-between items-center">
-                                                                <div className='text-white font-semibold'>Transaction Count By Day </div>
-                                                                <div className='text-white'>
-                                                                    {
-                                                                        !open ? <IoIosArrowDropdown className='w-6 h-6' /> : <IoIosArrowDropup className='w-6 h-6' />
-                                                                    }
-
-                                                                </div>
-                                                            </Disclosure.Button>
-                                                            <Disclosure.Panel className="">
-                                                                {TRANSACTION_DETAILS_FOR_GRAPH_COMMANDS.map((template: any, index: number) => (
-                                                                    <div key={template.note} className='flex flex-col  px-2 py-2 m-2 rounded-md border-dashed border text-sm font-semibold break-all'>
-                                                                        <div> {template.message}</div>
-                                                                        {template?.note && (
-                                                                            <div className='py-1 font-normal text-xs'>{template?.note}</div>
-                                                                        )}
-                                                                        <div className='text-right px-2 py-1'>
-                                                                            <Button style={{ backgroundColor: "green", color: "white" }} onClick={() => { console.log(template); addTemplateMessageToPropmt(template); "setTemplate(template)" }}>USE</Button>
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                ))}
-                                                            </Disclosure.Panel>
-                                                        </>)}
-                                                </Disclosure>
-
-                                            </div>
-                                            <div className="relative my-3 flex-1 sm:px-4">
-                                                <Disclosure>
-                                                    {({ open }) => (
-                                                        <>
-                                                            <Disclosure.Button className="w-full text-white font-semibold bg-pink-500 p-2 rounded-sm text-sm flex justify-between items-center">
-                                                                <div className='text-white font-semibold'>Block Details by Block Number </div>
-                                                                <div className='text-white'>
-                                                                    {
-                                                                        !open ? <IoIosArrowDropdown className='w-6 h-6' /> : <IoIosArrowDropup className='w-6 h-6' />
-                                                                    }
-
-                                                                </div>
-                                                            </Disclosure.Button>
-                                                            <Disclosure.Panel className="">
-                                                                {BLOCK_DETAILS_BY_BLOCK_NUMBER.map((template: any, index: number) => (
-                                                                    <div key={template.note} className='flex flex-col  px-2 py-2 m-2 rounded-md border-dashed border text-sm font-semibold break-all'>
-                                                                        <div> {template.message}</div>
-                                                                        {template?.note && (
-                                                                            <div className='py-1 font-normal text-xs'>{template?.note}</div>
-                                                                        )}
-                                                                        <div className='text-right px-2 py-1'>
-                                                                            <Button style={{ backgroundColor: "green", color: "white" }} onClick={() => { console.log(template); addTemplateMessageToPropmt(template); "setTemplate(template)" }}>USE</Button>
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                ))}
-                                                            </Disclosure.Panel>
-                                                        </>)}
-                                                </Disclosure>
-
-                                            </div>
-                                            <div className="relative my-3 flex-1 sm:px-4">
-                                                <Disclosure>
-                                                    {({ open }) => (
-                                                        <>
-                                                            <Disclosure.Button className="w-full text-white font-semibold bg-pink-500 p-2 rounded-sm text-sm flex justify-between items-center">
-                                                                <div className='text-white font-semibold'>Block Details by Hash </div>
-                                                                <div className='text-white'>
-                                                                    {
-                                                                        !open ? <IoIosArrowDropdown className='w-6 h-6' /> : <IoIosArrowDropup className='w-6 h-6' />
-                                                                    }
-
-                                                                </div>
-                                                            </Disclosure.Button>
-                                                            <Disclosure.Panel className="">
-                                                                {BLOCK_DETAILS_BY_HASH.map((template: any, index: number) => (
-                                                                    <div key={template.note} className='flex flex-col  px-2 py-2 m-2 rounded-md border-dashed border text-sm font-semibold break-all'>
-                                                                        <div> {template.message}</div>
-                                                                        {template?.note && (
-                                                                            <div className='py-1 font-normal text-xs'>{template?.note}</div>
-                                                                        )}
-                                                                        <div className='text-right px-2 py-1'>
-                                                                            <Button style={{ backgroundColor: "green", color: "white" }} onClick={() => { console.log(template); addTemplateMessageToPropmt(template); "setTemplate(template)" }}>USE</Button>
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                ))}
-                                                            </Disclosure.Panel>
-                                                        </>)}
-                                                </Disclosure>
-
-                                            </div>
-                                            <div className="relative my-3 flex-1 sm:px-4">
-                                                <Disclosure>
-                                                    {({ open }) => (
-                                                        <>
-                                                            <Disclosure.Button className="w-full text-white font-semibold bg-pink-500 p-2 rounded-sm text-sm flex justify-between items-center">
-                                                                <div className='text-white font-semibold'>Get Token Details</div>
-                                                                <div className='text-white'>
-                                                                    {
-                                                                        !open ? <IoIosArrowDropdown className='w-6 h-6' /> : <IoIosArrowDropup className='w-6 h-6' />
-                                                                    }
-
-                                                                </div>
-                                                            </Disclosure.Button>
-                                                            <Disclosure.Panel className="">
-                                                                {GET_TOKEN_DETAILS_COMMANDS.map((template: any, index: number) => (
-                                                                    <div key={template.note} className='flex flex-col  px-2 py-2 m-2 rounded-md border-dashed border text-sm font-semibold break-all'>
-                                                                        <div> {template.message}</div>
-                                                                        {template?.note && (
-                                                                            <div className='py-1 font-normal text-xs'>{template?.note}</div>
-                                                                        )}
-                                                                        <div className='text-right px-2 py-1'>
-                                                                            <Button style={{ backgroundColor: "green", color: "white" }} onClick={() => { console.log(template); addTemplateMessageToPropmt(template); "setTemplate(template)" }}>USE</Button>
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                ))}
-                                                            </Disclosure.Panel>
-                                                        </>)}
-                                                </Disclosure>
-
-                                            </div>
-
-                                            <div className="relative my-3 flex-1 sm:px-4">
-                                                <Disclosure>
-                                                    {({ open }) => (
-                                                        <>
-                                                            <Disclosure.Button className="w-full text-white font-semibold bg-pink-500 p-2 rounded-sm text-sm flex justify-between items-center">
-                                                                <div className='text-white font-semibold'>Get Latest Stats</div>
-                                                                <div className='text-white'>
-                                                                    {
-                                                                        !open ? <IoIosArrowDropdown className='w-6 h-6' /> : <IoIosArrowDropup className='w-6 h-6' />
-                                                                    }
-
-                                                                </div>
-                                                            </Disclosure.Button>
-                                                            <Disclosure.Panel className="">
-                                                                {GET_STATS_COMMANDS.map((template: any, index: number) => (
-                                                                    <div key={template.note} className='flex flex-col  px-2 py-2 m-2 rounded-md border-dashed border text-sm font-semibold break-all'>
-                                                                        <div> {template.message}</div>
-                                                                        {template?.note && (
-                                                                            <div className='py-1 font-normal text-xs'>{template?.note}</div>
-                                                                        )}
-                                                                        <div className='text-right px-2 py-1'>
-                                                                            <Button style={{ backgroundColor: "green", color: "white" }} onClick={() => { console.log(template); addTemplateMessageToPropmt(template); "setTemplate(template)" }}>USE</Button>
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                ))}
-                                                            </Disclosure.Panel>
-                                                        </>)}
-                                                </Disclosure>
-
-                                            </div>
                                             <div className="px-4 sm:px-4">
                                                 <Dialog.Title className="text-lg font-semibold text-gray-900">
                                                     Contract Deployment Commands
@@ -279,7 +118,7 @@ export default function ChatOptionsSlider({ open, setOpen, setInput }: any) {
                                                     {({ open }) => (
                                                         <>
                                                             <Disclosure.Button className="w-full bg-orange-400 text-white  font-semibold p-2 rounded-sm text-sm flex justify-between items-center">
-                                                                <div>Pegasus Testnet</div>
+                                                                <div>Fuji Testnet</div>
                                                                 <div>
                                                                     {
                                                                         !open ? <IoIosArrowDropdown className='w-6 h-6' /> : <IoIosArrowDropup className='w-6 h-6' />

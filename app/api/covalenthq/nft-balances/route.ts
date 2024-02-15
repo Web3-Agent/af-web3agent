@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { convertHexToString, convertStringToNumber } from '@/app/api-helpers/formatters';
+import { getChainData } from '@/app/api-helpers/chain';
+import { rpcGetAccountBalance } from '@/app/api-helpers/account-balance';
 import { CovalentClient } from "@covalenthq/client-sdk";
 import { configs } from '@/configs'
 import { convertAmountFromRawNumber } from '@/app/api-helpers/formatters';
@@ -14,27 +17,23 @@ export async function GET(request: Request) {
         }
 
         const client = new CovalentClient(configs.COVALENT_API_KEY);
-
-        // let { data } = await client.BalanceService.getTokenBalancesForWalletAddress("eth-mainnet", "0xeb2eb5c68156250c368914761bb8f1208d56acd0", { "noNftAssetMetadata": false, "noSpam": true, "noNftFetch": true, "nft": false, "quoteCurrency": "USD" });
-        let { data } = await client.BalanceService.getTokenBalancesForWalletAddress(network, address, { "noNftAssetMetadata": false, "noSpam": true, "noNftFetch": true, "nft": false, "quoteCurrency": "USD" });
-
+        let { data } = await client.NftService.getNftsForAddress(network, address, { "withUncached": true, "noNftAssetMetadata": true, "noSpam": true });
+        // console.log("DATA ", data)
         if (!data) {
             return NextResponse.json({ message: 'No Data Found!', data }, { status: 204 });
         }
-        let { items } = data;
-        items = items?.filter(item => item?.quote).map(item => {
-            const { pretty_quote, contract_name, contract_ticker_symbol, balance, contract_decimals } = item;
+        data = data?.items?.map((item: any) => {
+            const { contract_address, pretty_floor_price_quote, balance } = item;
             return {
-                balance: convertAmountFromRawNumber(balance, contract_decimals),
-                token: contract_name,
-                symbol: contract_ticker_symbol
+                contract_address,
+                // balance: convertAmountFromRawNumber(balance),
+                balance_usd: pretty_floor_price_quote ?? 'NA'
+
             }
         })
-
-        return NextResponse.json({ message: 'Here is details of account balance!', data: items }, { status: 200 });
+        return NextResponse.json({ message: 'Here is details of account NFT balance!', data }, { status: 200 });
     } catch (error: any) {
         const message = error.message || 'We ran into a problem Try again in a few minutes!';
         return NextResponse.json({ message, data: error }, { status: 500 });
-
     }
-} 
+}

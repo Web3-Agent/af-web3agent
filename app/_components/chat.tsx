@@ -5,7 +5,7 @@ import { ChatRequest, FunctionCallHandler } from "ai";
 import { useChat, type Message } from "ai/react";
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
-
+import { useAccount, useNetwork } from 'wagmi';
 import { cn } from '@/app/lib/utils'
 import { ChatList } from '@/app/_components/chat-list'
 import { ChatPanel } from '@/app/_components/chat-panel'
@@ -19,7 +19,6 @@ import { VerifyContractParams } from "@/app/lib/functions/types";
 import LoginErrorMsg from "./LoginErrorMsg";
 import React from "react";
 import WebAuth from "./WebAuth";
-import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Pleaseconnect from "./pleaseconnect";
 import { useTableland } from "@/context/TablelandProvider";
@@ -28,8 +27,8 @@ import Loader from '@/components/Loader'
 import { deployContractCompile } from '../lib/functions/deploy-contract';
 import { useGetTxReceipt } from '../../data/tx/getTxReceipt';
 import { useSendTransaction, } from "wagmi";
-import { NETWORK_CHAINID_MAPPING } from '../../constants/networkWithChainIdMapping';
-// const { address } = useAccount()
+import { CHAIN_ID_TO_NETWORK_MAPPING } from '../../constants/ChainIdToNetworkMapping';
+
 export interface ChatProps extends React.ComponentProps<'div'> {
     initialMessages?: Message[]
     id?: string
@@ -48,6 +47,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     const [contract, setContract] = useState(null);
     const [upAddress, setUPAddress] = useState('NO Address')
     const [txnData, setTxnData] = useState({})
+    const { chain } = useNetwork()
     const PRIVATE_KEY = '0x3fff66d819f30d0b9167ea6a76279d0dd51b5aff267b7cf3c78cb4033404ce58'; // your EOA private key
     const { data, isSuccess, sendTransaction } = useSendTransaction({
         request: {
@@ -919,18 +919,19 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             return functionResponse
 
         }
-        if (functionCall.name === 'show_tokens_for_wallet_address') {
+        if (functionCall.name === 'SHOW_TOKENS_FOR_WALLET_ADDRESS') {
             // You now have access to the parsed arguments here (assuming the JSON was valid)
             // If JSON is invalid, return an appropriate message to the model so that it may retry?
-            const args: { address: string, chainId: number } = JSON.parse(functionCall?.arguments)
+            const args: { address: string } = JSON.parse(functionCall?.arguments)
             let response: any;
             let content: string;
             let role: 'system' | 'function';
             console.log({ address })
-            if (args && args?.address) {
+            const network = CHAIN_ID_TO_NETWORK_MAPPING[chain?.id as number] ?? '';
+            if (args && args?.address && network?.length) {
                 try {
                     response = await fetch(
-                        `/api/tokens?address=${args.address}`,
+                        `/api/covalenthq/token-balances?address=${args.address}&network=${network}`,
                         {
                             method: 'GET',
                             headers: {
@@ -959,7 +960,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
                     ...chatMessages,
                     {
                         id: nanoid(),
-                        name: 'show_tokens_for_wallet_address',
+                        name: 'SHOW_TOKENS_FOR_WALLET_ADDRESS',
                         role: role,
                         content: content,
                     }
@@ -1021,7 +1022,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             return functionResponse
 
         }
-        if (functionCall.name === 'show_my_nft_balance') {
+        if (functionCall.name === 'GIVE_ME_NFT_BALANCE') {
             // You now have access to the parsed arguments here (assuming the JSON was valid)
             // If JSON is invalid, return an appropriate message to the model so that it may retry?
             const args: { address: string, chainId: number } = JSON.parse(functionCall?.arguments)
@@ -1029,10 +1030,12 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             let content: string;
             let role: 'system' | 'function';
             console.log({ args, address })
-            if (args && args?.address) {
+            const network = CHAIN_ID_TO_NETWORK_MAPPING[chain?.id as number] ?? '';
+            console.log("NETWORK:", network)
+            if (args && args?.address && network?.length) {
                 try {
                     response = await fetch(
-                        `/api/nft-balance?address=${args.address}`,
+                        `/api/covalenthq/nft-balances?address=${args.address}&network=${network}`,
                         {
                             method: 'GET',
                             headers: {
@@ -1061,7 +1064,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
                     ...chatMessages,
                     {
                         id: nanoid(),
-                        name: 'show_my_nft_balance',
+                        name: 'GIVE_ME_NFT_BALANCE',
                         role: role,
                         content: content,
                     }
@@ -1124,17 +1127,18 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
 
         }
 
-        if (functionCall.name === 'get_account_balance') {
+        if (functionCall.name === 'GET_TOKEN_BALANCE') {
             // You now have access to the parsed arguments here (assuming the JSON was valid)
             // If JSON is invalid, return an appropriate message to the model so that it may retry?
-            const args: { account: string, chainId: number } = JSON.parse(functionCall?.arguments)
+            const args: { address: string } = JSON.parse(functionCall?.arguments)
             let response: any;
             let content: string;
             let role: 'system' | 'function';
-            if (args && args?.account && args?.chainId) {
+            const network = CHAIN_ID_TO_NETWORK_MAPPING[chain?.id as number] ?? '';
+            if (args && args?.address && network?.length) {
                 try {
                     response = await fetch(
-                        `/api/account-balance?account=${args.account}&chainId=${args.chainId}`,
+                        `/api/covalenthq/token-balances?address=${args.address}&network=${network}`,
                         {
                             method: 'GET',
                             headers: {
@@ -1149,7 +1153,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
                     role = 'system'
                 }
             } else {
-                content = "account and chain id is required!" + '\n\n' + 'Try to fix the error and show the user the updated code.'
+                content = "Address is required!" + '\n\n' + 'Try to fix the error and show the user the updated code.'
                 role = 'system'
             }
 
@@ -1158,7 +1162,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
                     ...chatMessages,
                     {
                         id: nanoid(),
-                        name: 'get_account_balance',
+                        name: 'GET_TOKEN_BALANCE',
                         role: role,
                         content: content,
                     }
@@ -1226,10 +1230,11 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
                 let response: any;
                 let content: string;
                 let role: 'system' | 'function';
-                if (args && args?.hash) {
+                const network = CHAIN_ID_TO_NETWORK_MAPPING[chain?.id as number] ?? '';
+                if (args && args?.hash && network?.length) {
                     try {
                         response = await fetch(
-                            `/api/lightlink/transaction-by-hash?&hash=${args.hash}`,
+                            `/api/covalenthq/transaction-by-hash?&hash=${args.hash}&network=${network}`,
                             {
                                 method: 'GET',
                                 headers: {
@@ -1244,7 +1249,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
                         role = 'system'
                     }
                 } else {
-                    content = "hash and network is required!" + '\n\n' + 'Try to fix the error and show the user the updated code.'
+                    content = "Hash is required!" + '\n\n' + 'Try to fix the error and show the user the updated code.'
                     role = 'system'
                 }
                 const functionResponse: ChatRequest = {
