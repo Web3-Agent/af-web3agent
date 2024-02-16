@@ -6,5 +6,5 @@ export const CHAIN_ID_TO_NETWORK_MAPPING = {
     11155111: 'zetachain-testnet',
     59140: 'linea-testnet',
     7001: 'zetachain-testnet',
-    1891: 'avalanche-testnet'
+    43113: 'avalanche-testnet'
 }

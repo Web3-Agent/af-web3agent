@@ -17,26 +17,27 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { config } from '../middleware';
 import { goerli } from 'viem/chains';
 
-import { ConnectButton, connectorsForWallets, RainbowKitProvider,
+import {
+  ConnectButton, connectorsForWallets, RainbowKitProvider,
   darkTheme,
-    Theme,
+  Theme,
   getDefaultWallets,
   lightTheme
 } from '@rainbow-me/rainbowkit';
 import {
-    argentWallet,
-    coinbaseWallet,
-    imTokenWallet,
-    injectedWallet,
-    ledgerWallet,
-    metaMaskWallet,
-    omniWallet,
-    rainbowWallet,
-    trustWallet,
-    walletConnectWallet,
+  argentWallet,
+  coinbaseWallet,
+  imTokenWallet,
+  injectedWallet,
+  ledgerWallet,
+  metaMaskWallet,
+  omniWallet,
+  rainbowWallet,
+  trustWallet,
+  walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 
-  
+
 import { particleWallet } from '@particle-network/rainbowkit-ext';
 import { useMemo } from 'react';
 import { ParticleNetwork } from '@particle-network/auth';
@@ -219,7 +220,7 @@ interface Props {
 
 
 const Fuji = {
-  id: 1891,
+  id: 43113,
   name: 'Fuji Testnet',
   network: 'Avalanche Fuji Testnet',
   iconUrl: 'https://docs.avax.network/img/favicon.png',
@@ -230,11 +231,11 @@ const Fuji = {
     symbol: 'AVAX',
   },
   rpcUrls: {
-    public: { http: ['wss://avalanche-fuji-c-chain.publicnode.com'] },
-    default: { http: ['wss://avalanche-fuji-c-chain.publicnode.com'] },
+    public: { http: ['https://api.avax-test.network/ext/bc/C/rpc'] },
+    default: { http: ['https://api.avax-test.network/ext/bc/C/rpc'] },
   },
   blockExplorers: {
-    default: { name: 'Explorer', url: 'https://phoenix.lightlink.io/' },
+    default: { name: 'Explorer', url: 'https://testnet.snowtrace.io/' },
 
   }
 };
@@ -260,56 +261,55 @@ const Fuji = {
 //   connectors,
 //   publicClient
 // })
-export function Web3Provider ( props: Props )
-{
-  
-   const particle = useMemo(() => {
-            return new ParticleNetwork({
-                projectId: process.env.NEXT_PUBLIC_PROJECT_ID as string,
-                clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY as string,
-                appId: process.env.NEXT_PUBLIC_APP_ID as string,
-                wallet: {
-                    displayWalletEntry: true,
-                },
-            });
-        }, []);
-  const infurakey = process.env.NEXT_PUBLIC_INFURA_KEY 
-   
-const { chains, provider } = configureChains([ goerli,Fuji], [ infuraProvider( { apiKey : infurakey } ),publicProvider() ] )
+export function Web3Provider(props: Props) {
 
-   const popularWallets = useMemo(() => {
-        return {
-            groupName: 'Popular',
-            wallets: [
-                particleWallet({ chains, authType: 'google' }),
-                particleWallet({ chains, authType: 'facebook' }),
-                particleWallet({ chains, authType: 'apple' }),
-                particleWallet({ chains }),
-                injectedWallet({ chains }),
-                // rainbowWallet({ chains }),
-                coinbaseWallet({ appName: "Web3 Agent", chains }),
-                metaMaskWallet({ chains }),
-                // walletConnectWallet({ chains }),
-            ],
-        };
-   }, [ particle ] );
-  
-// const { connectors } = getDefaultWallets({
-//   appName: SITE_NAME,
-//   chains,
-// })
-  
-  const connectors = connectorsForWallets( [
-      
-        popularWallets
-    ]);
+  const particle = useMemo(() => {
+    return new ParticleNetwork({
+      projectId: process.env.NEXT_PUBLIC_PROJECT_ID as string,
+      clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY as string,
+      appId: process.env.NEXT_PUBLIC_APP_ID as string,
+      wallet: {
+        displayWalletEntry: true,
+      },
+    });
+  }, []);
+  const infurakey = process.env.NEXT_PUBLIC_INFURA_KEY
 
-const client = createClient({
-  autoConnect: true,
-  connectors,
-  provider,
-})
-  
+  const { chains, provider } = configureChains([goerli, Fuji], [infuraProvider({ apiKey: infurakey }), publicProvider()])
+
+  const popularWallets = useMemo(() => {
+    return {
+      groupName: 'Popular',
+      wallets: [
+        particleWallet({ chains, authType: 'google' }),
+        particleWallet({ chains, authType: 'facebook' }),
+        particleWallet({ chains, authType: 'apple' }),
+        particleWallet({ chains }),
+        injectedWallet({ chains }),
+        // rainbowWallet({ chains }),
+        coinbaseWallet({ appName: "Web3 Agent", chains }),
+        metaMaskWallet({ chains }),
+        // walletConnectWallet({ chains }),
+      ],
+    };
+  }, [particle]);
+
+  // const { connectors } = getDefaultWallets({
+  //   appName: SITE_NAME,
+  //   chains,
+  // })
+
+  const connectors = connectorsForWallets([
+
+    popularWallets
+  ]);
+
+  const client = createClient({
+    autoConnect: true,
+    connectors,
+    provider,
+  })
+
   return (
     <WagmiConfig client={client}>
       <RainbowKitProvider modalSize="compact" theme={myTheme} coolMode chains={chains}>
