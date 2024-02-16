@@ -1,6 +1,6 @@
 module.exports = {
     apps: [{
-        name: "light-link-web3agent",
+        name: "af-web3agent",
         script: "npm start"
     }]
 }

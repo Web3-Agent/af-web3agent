@@ -41,21 +41,18 @@ export const functionSchemas: ChatCompletionFunctions[] = [
         }
     },
     {
-        name: 'get_account_balance',
-        description: 'Get Account Balance',
+        name: 'GET_TOKEN_BALANCE',
+        description: 'Get Token Balance',
         parameters: {
             type: 'object',
-            description: `This function gets account balance of given wallet address of crypto. It returns message and data. Only call this function in a separate chat message do not call it from a message with other text.`,
+            description: `This function gets object that have message and data. Data which array of object. Each object contains details of NFTs balance in different network. You need to print this data array in table format. If there is no record in empty data array. Then print that "No NFTs Balance Found!" Only call this function in a separate chat message do not call it from a message with other text.`,
             properties: {
-                account: {
+                address: {
                     type: 'string',
-                },
-                chainId: {
-                    type: 'number',
-                    description: 'Chain ID of the EVM compatible. Default to 1 if not specified.'
+                    description: 'Address is crypto wallet address.'
                 },
             },
-            required: ['account', 'chainId']
+            required: ['address']
         }
     },
     {
@@ -125,8 +122,8 @@ export const functionSchemas: ChatCompletionFunctions[] = [
         }
     },
     {
-        name: 'show_my_nft_balance',
-        description: 'Get NFTs Balance',
+        name: 'GIVE_ME_NFT_BALANCE',
+        description: 'Get NFTs Balance for given address',
         parameters: {
             type: 'object',
             description: `This function gets object that have message and data. Data which array of object. Each object contains details of NFTs balance in different network. You need to print this data array in table format. If there is no record in empty data array. Then print that "No NFTs Balance Found!" Only call this function in a separate chat message do not call it from a message with other text.`,
@@ -170,8 +167,8 @@ export const functionSchemas: ChatCompletionFunctions[] = [
         }
     },
     {
-        name: 'show_tokens_for_wallet_address',
-        description: 'Returns a list of tokens for wallet address on all networks',
+        name: 'SHOW_TOKENS_FOR_WALLET_ADDRESS',
+        description: 'Returns a list of tokens for wallet address on connected networks',
         parameters: {
             type: 'object',
             description: `This function gets object that have message, total and data. Data which array of object. Each object contains details of tokens for a network. You need to print total first and then this data array in table format. Make sure you print all. If there is no record in empty data array. Then print that "No tokens Found!" Only call this function in a separate chat message do not call it from a message with other text.`,
