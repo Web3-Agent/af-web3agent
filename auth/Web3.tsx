@@ -52,7 +52,6 @@ const myTheme = merge(lightTheme(), {
 interface Props {
   children: ReactNode
 }
-// const mydefichain_testnet: Chain = {
 //   id: 1131,
 //   name: 'MyDefiChain Testnet',
 //   network: 'MyDefiChain Testnet',
