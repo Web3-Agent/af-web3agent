@@ -262,9 +262,10 @@ const handleFeatureRequest = (feature: string) => {
                 <textarea
                   value={builderForm?.additionDetails}
                   onChange={(e) => handleBuilderFormChange(e?.target?.value, 'additionDetails')}
-                  className="w-full p-2 bg-gray-100 rounded-lg "
+                  className="w-full p-2 bg-gray-100 rounded-lg"
                   placeholder="Describe Customisation"
-                  rows="4">
+                  rows={4}
+                 >
                 </textarea>
               </div>
               <Markdown remarkPlugins={[remarkGfm]}

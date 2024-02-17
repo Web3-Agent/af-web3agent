@@ -1,6 +1,6 @@
 module.exports = {
     apps: [{
-        name: "af-web3agent",
+        name: "inj-web3agent",
         script: "npm start"
     }]
 }
