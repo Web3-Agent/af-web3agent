@@ -1413,11 +1413,12 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
                 let content: string;
                 let role: 'system' | 'function';
                 console.log({ args })
-                const block_input = args?.blockNumber;
-                if (args && block_input) {
+                const blockNumber = args?.blockNumber;
+                const network = CHAIN_ID_TO_NETWORK_MAPPING[chain?.id as number] ?? '';
+                if (args && blockNumber && network?.length) {
                     try {
                         response = await fetch(
-                            `/api/lightlink/block-details?block_input=${block_input}`,
+                            `/api/covalenthq/block-details-by-number?blockNumber=${blockNumber}&network=${network}`,
                             {
                                 method: 'GET',
                                 headers: {

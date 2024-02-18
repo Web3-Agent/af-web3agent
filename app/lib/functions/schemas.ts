@@ -363,26 +363,11 @@ export const functionSchemas: ChatCompletionFunctions[] = [
         }
     },
     {
-        name: 'PROVIDE_LATEST_BLOCK_NUMBER_FOR_NETWORK',
-        description: 'Provide latest block number for given network name',
-        parameters: {
-            type: 'object',
-            description: `This function provides latest block number generated in blockchain by network name. It returns message and data. Only call this function in a separate chat message do not call it from a message with other text.`,
-            properties: {
-                network: {
-                    type: 'string',
-                    description: 'Network is blockchain node. In the context of blockchain, a network refers to the interconnected system of nodes (computers or devices) that communicate with each other to maintain and operate the blockchain. It\'s the infrastructure that enables the decentralized nature of blockchain technology.'
-                },
-            },
-            required: ['network']
-        }
-    },
-    {
         name: 'PROVIDE_BLOCK_DETAILS_BY_BLOCK_NUMBER_FOR_NETWORK',
-        description: 'Provide block details by block number for given network name. If block number is not given make block number latest.  It returns message and data. Make sure you print all',
+        description: 'Provide block details by block number. If block number is not given make block number latest.  It returns message and data. Make sure you print all',
         parameters: {
             type: 'object',
-            description: `This function provides block details by number generated in blockchain by network name. If block not is not given then make block number as latest. It returns message and data. Only call this function in a separate chat message do not call it from a message with other text.`,
+            description: `This function provides block details by number generated in blockchain. If block not is not given then make block number as latest. It returns message and data. Only call this function in a separate chat message do not call it from a message with other text.`,
             properties: {
                 blockNumber: {
                     type: 'number',

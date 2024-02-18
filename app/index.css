@@ -33,3 +33,7 @@ td{
 tbody{
     color: black !important;
 }
+
+strong {
+    color: black !important;
+}
