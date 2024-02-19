@@ -63,11 +63,12 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={ inter.className }>
+        <Web3Provider>
         <Providers attribute="class" defaultTheme="system" enableSystem>
           {/* <WagmiConfig client={ wagmiClient }> */}
 
-          <Web3Provider>
+          
               <AuthProvider>
                 <TablelandProvider>
                   <OperationsProvider>
@@ -103,9 +104,10 @@ export default function RootLayout({
                   </OperationsProvider>
                 </TablelandProvider>
               </AuthProvider>
-          </Web3Provider>
+          
 
-        </Providers>
+          </Providers>
+          </Web3Provider>
       </body>
     </html>
   )

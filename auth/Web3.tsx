@@ -16,17 +16,19 @@ import { createPublicClient, http } from 'viem'
 
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
-import { ReactNode, useMemo } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { infuraProvider } from 'wagmi/providers/infura'
 import React from 'react'
 // import { Chain } from '@rainbow-me/rainbowkit';
 
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { config } from '../middleware';
-import { goerli } from 'viem/chains';
+import { avalanche,avalancheFuji} from 'viem/chains';
 
-import { ParticleNetwork } from '@particle-network/auth';
+import { ParticleNetwork,WalletEntryPosition } from '@particle-network/auth';
 import { particleWallet } from '@particle-network/rainbowkit-ext';
+// import { Avalanche,AvalancheTestnet } from '@particle-network/chains';
+import { SmartAccount } from '@particle-network/aa';
 import {
     argentWallet,
     coinbaseWallet,
@@ -96,13 +98,13 @@ const AREON = {
 
 
 
-const { chains, publicClient } = configureChains(
-  [Fuji, goerli],
-  [
-    infuraProvider({ apiKey: process.env.INFURA_API_KEY }),
-    publicProvider()
-  ]
-);
+// const { chains, publicClient } = configureChains(
+//   [Fuji, goerli],
+//   [
+//     infuraProvider({ apiKey: process.env.INFURA_API_KEY }),
+//     publicProvider()
+//   ]
+// );
 
   
 
@@ -120,12 +122,11 @@ export function Web3Provider ( props: Props )
 {
   
   const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [goerli,Fuji],
+    [avalancheFuji, avalanche],
     [publicProvider()]
   );
 
-  const commonOptions = { chains, projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID as string };
-
+  const commonOptions = { chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string };
 
 const particle = useMemo(() => {
             return new ParticleNetwork({
@@ -133,8 +134,10 @@ const particle = useMemo(() => {
                 clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY as string,
                 appId: process.env.NEXT_PUBLIC_APP_ID as string,
                 wallet: {
-                    displayWalletEntry: true,
-                },
+                  displayWalletEntry: true,
+                  defaultWalletEntryPosition: WalletEntryPosition.BL,
+              },
+               
             });
    }, [] );
   
@@ -147,11 +150,10 @@ const particle = useMemo(() => {
       particleWallet({ chains, authType: 'apple' }),
       particleWallet({ chains }),
       injectedWallet(commonOptions),
-      // rainbowWallet(commonOptions),
-      // coinbaseWallet({ appName: 'RainbowKit demo', ...commonOptions }),
-      // metaMaskWallet(commonOptions),
-      // walletConnectWallet(commonOptions),
-    ],
+      rainbowWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string}),
+      coinbaseWallet({ appName: "Web3 Agent", chains }),
+      metaMaskWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string}),]
+      //0x3fF3761836A954a69606C926d54d9470B988CcE4
   }), [particle]);
 
   const connectors = connectorsForWallets([
@@ -173,6 +175,20 @@ const particle = useMemo(() => {
     
   });
    
+   useEffect(() => {
+    const fetchAddress = async () => {
+      try {
+        const address = await SmartAccount.getAddress();
+       
+        console.log(address);
+      } catch (error) {
+        console.error('Error fetching address:', error);
+      }
+    };
+
+    fetchAddress();
+
+  }, []);
   
   return (
     <WagmiConfig config={wagmiClient}>
