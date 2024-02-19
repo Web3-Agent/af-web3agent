@@ -487,7 +487,7 @@ export const BLOCK_DETAILS_BY_BLOCK_NUMBER = [
     {
         action: 'BLOCK_DETAILS_BY_BLOCK_NUMBER',
         message: 'Give me the block details for block number __BLOCK_NUMBER__',
-        note: `Sample Query: Give me the block details for block number 64154734`,
+        note: `Sample Query: Give me the block details for block number 10555324`,
     },
 ]
 export const TRANSACTION_DETAILS_FOR_GRAPH_COMMANDS = [
