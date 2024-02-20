@@ -5,7 +5,7 @@ import { useAccount, useNetwork } from 'wagmi';
 import { CHAIN_ID_TO_NETWORK_MAPPING } from '../../constants/ChainIdToNetworkMapping';
 import axiosHelper from '../api-helpers/axios/axiosHelper';
 import { TokenBalancesListView, AddressActivityListView } from "@covalenthq/goldrush-kit";
-
+import "@covalenthq/goldrush-kit/styles.css";
 interface TokenData {
   symbol: string;
   name: string;
@@ -62,14 +62,24 @@ const TokenBalancesComponent: React.FC = () => {
         <TokenBalancesListView
     chain_names={[
         
-        "mumbai",
-        
+       
+        "goerli",
         "avalanche-testnet",
         
     ]} // list of chains
-    hide_small_balances
     address="0x20613aBe93e4611Cf547b4395E4248c6129c8697" //sample address
-/>
+        />
+        {/* <AddressActivityListView
+        
+         chain_names={[
+        
+       
+        "goerli",
+        "avalanche-testnet",
+        
+    ]} // list of chains
+    address="0x20613aBe93e4611Cf547b4395E4248c6129c8697" //sample address
+        /> */}
       </div>
     </div>
   );
