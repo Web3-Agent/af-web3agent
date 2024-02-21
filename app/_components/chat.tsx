@@ -48,6 +48,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     const [upAddress, setUPAddress] = useState('NO Address')
     const [txnData, setTxnData] = useState({})
     const { chain } = useNetwork()
+    console.log("LINE: 51 ", { address, chain })
     const PRIVATE_KEY = '0x3fff66d819f30d0b9167ea6a76279d0dd51b5aff267b7cf3c78cb4033404ce58'; // your EOA private key
     const { data, isSuccess, sendTransaction } = useSendTransaction({
         request: {
